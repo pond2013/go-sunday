@@ -46,7 +46,10 @@ func CheckServerResponse() {
 }
 
 func bak2() {
-	/* defer first -> excute last */
+	/*
+		defer first -> excute last
+		for example LogEnd() will excute before anon()
+	*/
 	// defer func() {
 	// 	fmt.Println("example anonymouse function")
 	// }()

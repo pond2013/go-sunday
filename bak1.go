@@ -2,57 +2,51 @@ package main
 
 import (
 	"fmt"
+	"reflect"
+	"strconv"
 )
 
 func bak1() {
-	// Example input string
-	/*
-		fmt.Println("enter your name:")
+	/* Example input string */
 
-		// var txtInput string = ""
-		txtInput := ""
+	fmt.Println("enter your name:")
+	// var txtInput string = ""
+	txtInput := ""
 
-		fmt.Scan(&txtInput)
-		fmt.Println("Hello " + txtInput)
-	*/
+	fmt.Scan(&txtInput)
+	fmt.Println("Hello " + txtInput)
 
-	// check variable type
-	/*
-		age := 2
-		fmt.Println(reflect.TypeOf(age))
-	*/
+	/* check variable type */
+	age := 2
+	fmt.Println(reflect.TypeOf(age))
 
-	// convert type
-	/*
-		height := "100"
-		h, err := strconv.Atoi(height)
-		if err != nil {
-			fmt.Println(err)
-		} else {
-			fmt.Println(h)
-		}
+	/* convert type */
+	height := "100"
+	h, err := strconv.Atoi(height)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(h)
+	}
 
-		water := "12.40"
-		fWater, err := strconv.ParseFloat(water, 32)
-		if err != nil {
-			fmt.Println(err)
-		} else {
-			fmt.Println(fWater)
-		}
+	water := "12.40"
+	fWater, err := strconv.ParseFloat(water, 32)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(fWater)
+	}
 
-		txtShow := ""
-		txtShow = fmt.Sprintf("water = %.2f, height = %d", fWater, h)
-		fmt.Println(txtShow)
-	*/
+	txtShow := ""
+	txtShow = fmt.Sprintf("water = %.2f, height = %d", fWater, h)
+	fmt.Println(txtShow)
 
-	// Iteration for
-	/*
-		for i := 0; i < 10; i++ {
-			fmt.Println(i)
-		}
-	*/
+	/* Iteration for */
+	for i := 0; i < 10; i++ {
+		fmt.Println(i)
+	}
 
-	// Switch case
+	/* Conditional */
 	score := 80
 	switch score {
 	case 80:

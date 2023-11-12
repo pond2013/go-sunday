@@ -3,8 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println(("hello, world"))
-
+	/* create array with fixed value */
 	// arr := []int{2, 4, 4, 5}
 
 	/* create [0 0 0 0] array */
