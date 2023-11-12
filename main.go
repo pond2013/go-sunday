@@ -1,66 +1,22 @@
 package main
 
-import (
-	"fmt"
-	"time"
-)
-
-func IsInSystem(username string) bool {
-	return true
-}
-
-func GetUserDetail(username string) (int, string) {
-	return 201, "manager"
-}
-
-func GetDeparture(username string, departure *string) {
-	if username != "" {
-		*departure = "home"
-	}
-}
-
-func CheckLogin(username string, password string) {
-	if IsInSystem(username) {
-		fmt.Println("found user in system")
-		GetUserDetail(username)
-		departure := ""
-		GetDeparture(username, &departure)
-	}
-}
-
-func GetMember() {
-	fmt.Println("please wait...")
-	time.Sleep(3 * time.Second)
-}
-
-func LogEnd() {
-	time.Now()
-	fmt.Println("completed program ")
-	fmt.Println(time.Now())
-}
-
-func CheckServerResponse() {
-	fmt.Println("check server time")
-	time.Sleep(3 * time.Second)
-	panic("server error")
-}
+import "fmt"
 
 func main() {
-	/* defer first -> excute last */
-	// defer func() {
-	// 	fmt.Println("example anonymouse function")
-	// }()
-	// defer LogEnd()
+	fmt.Println(("hello, world"))
 
-	defer func() {
-		if r := recover(); r != nil {
-			fmt.Println("recover ")
-			fmt.Println(r)
-		}
-	}()
+	// arr := []int{2, 4, 4, 5}
 
-	GetMember()
+	/* create [0 0 0 0] array */
+	arr := make([]int, 4)
+	arr[0] = 30
+	fmt.Println(arr)
 
-	CheckServerResponse()
+	/* slice string */
+	txt := "today is sunday"
+	fmt.Println(txt[0:5])
+	fmt.Println(arr[0:1])
 
+	/* check lenght */
+	fmt.Println(len(txt))
 }
