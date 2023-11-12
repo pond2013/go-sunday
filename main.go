@@ -1,34 +1,32 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
-type SaveLogInterface interface {
-	SaveLog()
+func Ping1S(c chan int) {
+	for i := 0; i < 10; i++ {
+		fmt.Println("ping : ", i)
+		time.Sleep(1 * time.Second)
+	}
+	c <- 10
 }
 
-func SaveLog(st SaveLogInterface) {
-	st.SaveLog()
-}
-
-type TransferBBL struct {
-	name string
-}
-
-type TransferKTB struct {
-	name string
-}
-
-func (tBBL *TransferBBL) SaveLog() {
-	fmt.Println("save to database", tBBL.name)
-}
-
-func (tKTB *TransferKTB) SaveLog() {
-	fmt.Println("save to database", tKTB.name)
+func SendNoti5S(c chan string) {
+	fmt.Println("Send noti")
+	time.Sleep(5 * time.Second)
+	fmt.Println("Send noti")
+	c <- "success"
 }
 
 func main() {
-	transA := TransferBBL{name: "BBL test"}
-	transB := TransferKTB{name: "KTB test"}
-	SaveLog(&transA)
-	SaveLog(&transB)
+	c1 := make(chan int)
+	c2 := make(chan string)
+	go Ping1S(c1)
+	go SendNoti5S(c2)
+
+	pingVal, notMess := <-c1, <-c2
+	fmt.Println(pingVal, notMess)
+	fmt.Println("completed")
 }
