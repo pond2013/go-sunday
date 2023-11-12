@@ -42,6 +42,8 @@ func LogEnd() {
 func CheckServerResponse() {
 	fmt.Println("check server time")
 	time.Sleep(3 * time.Second)
+
+	/* panic will break program */
 	panic("server error")
 }
 

@@ -2,20 +2,45 @@ package main
 
 import "fmt"
 
+type Address struct {
+	Address  string
+	PostCode string
+}
+
+type UserProfile struct {
+	Firstname string
+	Lastname  string
+	Age       int
+	Height    float32
+
+	Address Address
+
+	Bill struct {
+		BillAddress string
+	}
+}
+
+func (u UserProfile) ToFullDesc() string {
+	return fmt.Sprintf("%s %s", u.Firstname, u.Lastname)
+}
+
 func main() {
-	/* create array with fixed value */
-	// arr := []int{2, 4, 4, 5}
+	fmt.Println("xx")
 
-	/* create [0 0 0 0] array */
-	arr := make([]int, 4)
-	arr[0] = 30
-	fmt.Println(arr)
+	/* example map */
+	user := map[string]string{}
+	user["username"] = "pondhub"
+	user["password"] = "xxxxxx"
+	fmt.Println(user)
+	fmt.Println(user["username"])
 
-	/* slice string */
-	txt := "today is sunday"
-	fmt.Println(txt[0:5])
-	fmt.Println(arr[0:1])
+	/* example struct */
+	userProfile := UserProfile{
+		Firstname: "pondhub",
+		Lastname:  "salty",
+	}
+	userProfile.Address.PostCode = "11203"
+	fmt.Println(userProfile)
 
-	/* check lenght */
-	fmt.Println(len(txt))
+	fmt.Println(userProfile.ToFullDesc())
 }
