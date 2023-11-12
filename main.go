@@ -1,30 +1,79 @@
+// DB connect
+
 package main
 
 import (
+	"database/sql"
 	"fmt"
-	"io"
-	"log"
 	"net/http"
+
+	"github.com/labstack/echo/v4"
+	_ "github.com/lib/pq"
 )
 
-func FuncIndex(w http.ResponseWriter, r *http.Request) {
-	// check query param "name"
-	fmt.Println(r.URL.Query().Get("name"))
+const (
+	DB_NAME     = "greekybases"
+	DB_USER     = "postgres"
+	DB_PASSWORD = "mypassword"
+	DB_HOST     = "host.docker.internal"
+)
 
-	// check method
-	fmt.Println(r.Method)
-	if r.Method == "GET" {
-		io.WriteString(w, "Hello, World!. This is GET method")
-	} else {
-		io.WriteString(w, "Hello, World!. This is Other method")
-	}
+type Member struct {
+	ID       int    `json:"id"`
+	Username string `json:"username"`
+	Email    string `json:"email"`
 }
 
-func main() {
-	http.HandleFunc("/", FuncIndex)
-	fmt.Println("start server completed")
-	error := http.ListenAndServe(":8080", nil)
-	if error != nil {
-		log.Fatal(error)
+var db *sql.DB
+
+func init() {
+
+	var err error
+
+	connStr := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable", DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
+	db, err = sql.Open("postgres", connStr)
+	if err != nil {
+		fmt.Println("Error opening database connection:", err)
+		return
 	}
+
+	err = db.Ping()
+	if err != nil {
+		fmt.Println("Error pinging database:", err)
+		return
+	}
+
+	fmt.Println("Connected to the database")
+}
+
+// Handler functions
+func GetMembers(c echo.Context) error {
+	rows, err := db.Query("SELECT id, username, email FROM members")
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to fetch members"})
+	}
+	defer rows.Close()
+
+	var members []Member
+	for rows.Next() {
+		var member Member
+		err := rows.Scan(&member.ID, &member.Username, &member.Email)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to scan members"})
+		}
+		members = append(members, member)
+	}
+
+	return c.JSON(http.StatusOK, members)
+}
+
+// Start the Echo server
+func main() {
+	e := echo.New()
+
+	// Routes
+	e.GET("/", GetMembers)
+
+	// Start server
+	e.Logger.Fatal(e.Start(":8080"))
 }
