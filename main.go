@@ -11,7 +11,7 @@ func main() {
 	/*
 		fmt.Println("enter your name:")
 
-		// var txtInput string
+		// var txtInput string = ""
 		txtInput := ""
 
 		fmt.Scan(&txtInput)
@@ -38,4 +38,8 @@ func main() {
 	} else {
 		fmt.Println(fWater)
 	}
+
+	txtShow := ""
+	txtShow = fmt.Sprintf("water = %.2f, height = %d", fWater, h)
+	fmt.Println(txtShow)
 }
