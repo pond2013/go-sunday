@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 )
 
 type Address struct {
@@ -50,6 +51,30 @@ func main() {
 	byteTxtJson, err := json.MarshalIndent(userProfile, "", "  ")
 	if err != nil {
 		fmt.Println("err")
+	} else {
+		fmt.Println(string(byteTxtJson))
 	}
-	fmt.Println(string(byteTxtJson))
+
+	/* Json data define */
+	dataJson :=
+		`{
+		"first_name": "sad",
+		"LastName": "salty",
+		"Age": 24,
+		"Height": 160,
+		"Address": {
+		  "Address": "",
+		  "PostCode": "11203"
+		},
+		"Bill": {
+		  "BillAddress": ""
+		}
+	}`
+	var myProfile UserProfile
+	err = json.Unmarshal([]byte(dataJson), &myProfile)
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		fmt.Println((myProfile))
+	}
 }
