@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 type Address struct {
 	Address  string
@@ -8,8 +11,8 @@ type Address struct {
 }
 
 type UserProfile struct {
-	Firstname string
-	Lastname  string
+	Firstname string `json:"first_name"`
+	Lastname  string `json:"LastName"`
 	Age       int
 	Height    float32
 
@@ -38,9 +41,15 @@ func main() {
 	userProfile := UserProfile{
 		Firstname: "pondhub",
 		Lastname:  "salty",
+		Age:       24,
+		Height:    160,
 	}
-	userProfile.Address.PostCode = "11203"
 	fmt.Println(userProfile)
-
+	userProfile.Address.PostCode = "11203"
 	fmt.Println(userProfile.ToFullDesc())
+	byteTxtJson, err := json.MarshalIndent(userProfile, "", "  ")
+	if err != nil {
+		fmt.Println("err")
+	}
+	fmt.Println(string(byteTxtJson))
 }
